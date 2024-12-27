@@ -16,7 +16,7 @@ export class User {
     email: string;
 
     @Column( { default: 'user' } )
-    rol: string;
+    role: string;
 
     @DeleteDateColumn()
     deletedAt: Date;

@@ -1,8 +1,17 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from 'src/auth/dto/login.dto';
-import { AuthGuard } from './guard/auth.guard';
+import { Request } from 'express';
+import { Role } from './enum/rol.enum';
+import { Auth } from './decorators/auth.decorator';
+
+interface RequestWithUser extends Request{
+    user:{
+        email: string,
+        role: string
+    }
+}
 
 @Controller('auth')
 export class AuthController {
@@ -27,12 +36,15 @@ export class AuthController {
     }
 
     @Get('profile')
-    @UseGuards(AuthGuard)
+    @Auth([Role.ADMIN, Role.USER])
     profile(
-        @ Request()
-        req,
+        @ Req() 
+        req: RequestWithUser,
     ){
-        return req.user
+        return this.authService.profile({
+            email: req.user.email,
+            role: req.user.role
+        })
     }
 
 }
