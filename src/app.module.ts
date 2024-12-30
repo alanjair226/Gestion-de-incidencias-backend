@@ -2,6 +2,12 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
+import { IncidencesModule } from './incidences/incidences.module';
+import { CommonIncidencesModule } from './common_incidences/common_incidences.module';
+import { SeveritiesModule } from './severities/severities.module';
+import { TrimestersModule } from './trimesters/trimesters.module';
+import { CommentsModule } from './comments/comments.module';
+import { UserTrimesterScoresModule } from './user_trimester_scores/user_trimester_scores.module';
 require('dotenv').config();
 
 @Module({
@@ -18,6 +24,12 @@ require('dotenv').config();
       synchronize: true,
     }),
     AuthModule,
+    IncidencesModule,
+    CommonIncidencesModule,
+    SeveritiesModule,
+    TrimestersModule,
+    CommentsModule,
+    UserTrimesterScoresModule,
   ],
   controllers: [],
   providers: [],
