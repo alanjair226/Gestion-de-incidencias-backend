@@ -1,4 +1,11 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateSeverityDto } from './create-severity.dto';
+import { IsOptional, IsString } from 'class-validator';
 
-export class UpdateSeverityDto extends PartialType(CreateSeverityDto) {}
+export class UpdateSeverityDto {
+  @IsOptional()
+  @IsString()
+  name?: string;
+
+  @IsOptional()
+  @IsString()
+  value?: string;
+}

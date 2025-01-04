@@ -1,4 +1,15 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreatePeriodDto } from './create-period.dto';
+import { IsBoolean, IsDateString, IsOptional } from 'class-validator';
 
-export class UpdatePeriodDto extends PartialType(CreatePeriodDto) {}
+export class UpdatePeriodDto {
+  @IsOptional()
+  @IsDateString()
+  start_date?: Date;
+
+  @IsOptional()
+  @IsDateString()
+  end_date?: Date;
+
+  @IsOptional()
+  @IsBoolean()
+  is_open?: boolean;
+}

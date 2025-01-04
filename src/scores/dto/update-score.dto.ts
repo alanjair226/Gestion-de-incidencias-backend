@@ -1,4 +1,15 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateScoreDto } from './create-score.dto';
+import { IsOptional, IsNumber } from 'class-validator';
 
-export class UpdateScoreDto extends PartialType(CreateScoreDto) {}
+export class UpdateScoreDto {
+  @IsOptional()
+  @IsNumber()
+  user?: number; // ID del usuario asociado
+
+  @IsOptional()
+  @IsNumber()
+  Period?: number; // ID del periodo asociado
+
+  @IsOptional()
+  @IsNumber()
+  score?: number; // Puntuación
+}

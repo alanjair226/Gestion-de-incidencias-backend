@@ -9,7 +9,10 @@ export class Incidence {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({
+        type: "varchar",
+        length: 1000
+    })
     description: string;
 
     @ManyToOne(() => User, (user) => user.id, {
