@@ -2,11 +2,23 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
+import { ScoresModule } from './scores/scores.module';
+import { Score } from './scores/entities/score.entity';
+import { User } from './users/entities/user.entity';
+import { PeriodsModule } from './periods/periods.module';
+import { Period } from './periods/entities/period.entity';
+import { SeveritiesModule } from './severities/severities.module';
+import { CommonIncidencesModule } from './common_incidences/common_incidences.module';
+import { Severity } from './severities/entities/severity.entity';
+import { CommonIncidence } from './common_incidences/entities/common_incidence.entity';
+import { IncidencesModule } from './incidences/incidences.module';
+import { Incidence } from './incidences/entities/incidence.entity';
+import { UsercommentsModule } from './usercomments/usercomments.module';
+import { Usercomment } from './usercomments/entities/usercomment.entity';
 require('dotenv').config();
 
 @Module({
   imports: [
-    UsersModule,
     TypeOrmModule.forRoot({
       type: "mysql",
       host: process.env.DB_HOST,
@@ -14,10 +26,26 @@ require('dotenv').config();
       username: process.env.DB_USER,
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
-      autoLoadEntities: true,
+      entities: [
+        User,
+        Score,
+        Period,
+        Severity,
+        CommonIncidence,
+        Incidence,
+        Usercomment
+      ],
       synchronize: true,
     }),
+    UsersModule,
     AuthModule,
+    ScoresModule,
+    PeriodsModule,
+    SeveritiesModule,
+    CommonIncidencesModule,
+    IncidencesModule,
+    UsercommentsModule,
+    UsercommentsModule,
   ],
   controllers: [],
   providers: [],
