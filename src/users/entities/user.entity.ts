@@ -25,17 +25,17 @@ export class User {
     @DeleteDateColumn()
     deletedAt: Date;
 
-    @OneToMany(() => Incidence, (incidence) => incidence.assigned_to)
-    assignedIncidences: Incidence[];
+    // @OneToMany(() => Incidence, (incidence) => incidence.assigned_to)
+    // assignedIncidences: Incidence[];
 
-    @OneToMany(() => Incidence, (incidence) => incidence.created_by)
-    createdIncidences: Incidence[];
+    // @OneToMany(() => Incidence, (incidence) => incidence.created_by)
+    // createdIncidences: Incidence[];
 
-    @OneToMany(() => Comment, (comment) => comment.user)
-    commentsUser: Comment[];
+    // @OneToMany(() => Comment, (comment) => comment.user)
+    // commentsUser: Comment[];
 
-    @OneToMany(() => Comment, (comment) => comment.admin)
-    commentsAdmin: Comment[];
+    // @OneToMany(() => Comment, (comment) => comment.admin)
+    // commentsAdmin: Comment[];
 
     @OneToMany(() => UserTrimesterScore, (score) => score.user)
     scores: UserTrimesterScore[];

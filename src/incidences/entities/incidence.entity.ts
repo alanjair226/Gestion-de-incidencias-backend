@@ -7,38 +7,38 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn
 @Entity()
 export class Incidence {
     
-    @PrimaryGeneratedColumn()
-    id: number;
+    // @PrimaryGeneratedColumn()
+    // id: number;
 
-    @Column()
-    description: string;
+    // @Column()
+    // description: string;
 
-    @ManyToOne(() => User, (user) => user.assignedIncidences, {
-        eager: true,
-    })
-    assigned_to: User;
+    // @ManyToOne(() => User, (user) => user.assignedIncidences, {
+    //     eager: true,
+    // })
+    // assigned_to: User;
 
-    @ManyToOne(() => User, (user) => user.createdIncidences, {
-        eager: true,
-    })
-    created_by: User;
+    // @ManyToOne(() => User, (user) => user.createdIncidences, {
+    //     eager: true,
+    // })
+    // created_by: User;
     
-    @Column()
-    value: string;
+    // @Column()
+    // value: string;
     
-    @Column()
-    status: string;
+    // @Column()
+    // status: string;
 
-    @ManyToOne(() => Severity, (severity) => severity.incidences)
-    severity: Severity;
+    // @ManyToOne(() => Severity, (severity) => severity.incidences)
+    // severity: Severity;
     
-    @ManyToOne(() => Trimester, (trimester) => trimester.incidences)
-    trimester: Trimester;
+    // @ManyToOne(() => Trimester, (trimester) => trimester.incidences)
+    // trimester: Trimester;
 
-    @Column()
-    created_at: Date;
+    // @Column()
+    // created_at: Date;
 
-    @OneToOne(() => Comment, (comment) => comment.comment)
-    @JoinColumn()
-    comment: Comment;
+    // @OneToOne(() => Comment, (comment) => comment.comment)
+    // @JoinColumn()
+    // comment: Comment;
 }

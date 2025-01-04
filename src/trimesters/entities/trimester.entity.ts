@@ -16,7 +16,10 @@ export class Trimester {
     @Column()
     is_open: boolean;
 
-    @OneToMany(() => Incidence, (incidence) => incidence.trimester)
-    incidences: Incidence[];
+    // @OneToMany(() => Incidence, (incidence) => incidence.trimester)
+    // incidences: Incidence[];
+
+    @OneToMany(() => UserTrimesterScore, (score) => score.trimester)
+    user_score: UserTrimesterScore[];
 
 }

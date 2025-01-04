@@ -3,9 +3,9 @@ import { Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class CommonIncidence {
-    @PrimaryGeneratedColumn()
-    id: number;
+    // @PrimaryGeneratedColumn()
+    // id: number;
 
-    @ManyToOne(() => Severity, (severity) => severity.commonIncidences)
-    severity: Severity;
+    // @ManyToOne(() => Severity, (severity) => severity.commonIncidences)
+    // severity: Severity;
 }

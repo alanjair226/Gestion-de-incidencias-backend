@@ -4,18 +4,18 @@ import { Column, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } f
 
 @Entity()
 export class Severity {
-    @PrimaryGeneratedColumn()
-    id: number;
+    // @PrimaryGeneratedColumn()
+    // id: number;
 
-    @Column()
-    name: string;
+    // @Column()
+    // name: string;
 
-    @Column()
-    value: string;
+    // @Column()
+    // value: string;
 
-    @OneToMany(() => Incidence, (incidence) => incidence.severity)
-    incidences: Incidence[];
+    // @OneToMany(() => Incidence, (incidence) => incidence.severity)
+    // incidences: Incidence[];
 
-    @OneToMany(() => CommonIncidence, (commonIncidence) => commonIncidence.severity)
-    commonIncidences: CommonIncidence[];
+    // @OneToMany(() => CommonIncidence, (commonIncidence) => commonIncidence.severity)
+    // commonIncidences: CommonIncidence[];
 }

@@ -4,19 +4,19 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn
 
 @Entity() // Esto debe tener los paréntesis para ser correcto.
 export class Comment {
-    @PrimaryGeneratedColumn()
-    id: number;
+    // @PrimaryGeneratedColumn()
+    // id: number;
 
-    @ManyToOne(() => User, (user) => user.commentsUser)
-    user: User;
+    // @ManyToOne(() => User, (user) => user.commentsUser)
+    // user: User;
 
-    @ManyToOne(() => User, (user) => user.commentsAdmin)
-    admin: User;
+    // @ManyToOne(() => User, (user) => user.commentsAdmin)
+    // admin: User;
 
-    @OneToOne(() => Incidence, (incidence) => incidence.comment)
-    @JoinColumn()
-    comment: Incidence;
+    // @OneToOne(() => Incidence, (incidence) => incidence.comment)
+    // @JoinColumn()
+    // comment: Incidence;
 
-    @Column()
-    created_at: Date;
+    // @Column()
+    // created_at: Date;
 }
