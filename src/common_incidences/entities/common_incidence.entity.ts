@@ -12,7 +12,9 @@ export class CommonIncidence {
     })
     incidence: string;
 
-    @ManyToOne(() => Severity, (severity) => severity.incidence)
+    @ManyToOne(() => Severity, (severity) => severity.incidence, {
+        eager: true,
+    })
     severity: Severity;
 }
 

@@ -7,7 +7,9 @@ export class Usercomment {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => User, (user) => user.id)
+    @ManyToOne(() => User, (user) => user.id, {
+        eager: true,
+    })
     user: User;
 
     @OneToOne(() => Incidence)

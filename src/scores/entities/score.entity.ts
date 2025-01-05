@@ -8,10 +8,14 @@ export class Score {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => User, (user) => user.id)
+    @ManyToOne(() => User, (user) => user.id, {
+        eager: true,
+    })
     user: User;
 
-    @ManyToOne(() => Period, (period) => period.id)
+    @ManyToOne(() => Period, (period) => period.id, {
+        eager: true,
+    })
     Period: Period;
 
     @Column()

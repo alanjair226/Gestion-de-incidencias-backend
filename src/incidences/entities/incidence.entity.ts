@@ -31,16 +31,22 @@ export class Incidence {
     @Column({type: "boolean"})
     status: boolean;
 
-    @ManyToOne(() => Severity, (severity) => severity.id)
+    @ManyToOne(() => Severity, (severity) => severity.id, {
+        eager: true,
+    })
     severity: Severity;
     
-    @ManyToOne(() => Period, (period) => period.id)
+    @ManyToOne(() => Period, (period) => period.id, {
+        eager: true,
+    })
     period: Period;
 
     @Column()
     created_at: Date;
 
-    @OneToOne(() => Usercomment, (comment) => comment.incidence)
+    @OneToOne(() => Usercomment, (comment) => comment.incidence, {
+        eager: true,
+    })
     @JoinColumn()
     comment: Usercomment; 
 }
