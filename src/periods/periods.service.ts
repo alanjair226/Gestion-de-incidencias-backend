@@ -1,26 +1,43 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreatePeriodDto } from './dto/create-period.dto';
 import { UpdatePeriodDto } from './dto/update-period.dto';
+import { Period } from './entities/period.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PeriodsService {
-  create(createPeriodDto: CreatePeriodDto) {
-    return 'This action adds a new period';
+
+  constructor(
+    @InjectRepository(Period)
+    private readonly periodRepository:Repository<Period>
+  ){}
+
+  async create(createPeriodDto: CreatePeriodDto): Promise<Period> {
+    
+    const existingOpenPeriod = await this.periodRepository.findOne({
+      where: { is_open: true },
+    });
+
+    if (existingOpenPeriod) {
+      throw new ConflictException('an open period already exists');
+    }
+
+    const newPeriod = this.periodRepository.create(createPeriodDto);
+    return await this.periodRepository.save(createPeriodDto);
   }
 
-  findAll() {
-    return `This action returns all periods`;
+
+  async findAll() {
+    return await this.periodRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} period`;
+  async findOne(id: number) {
+    return this.periodRepository.findOneBy({id})
   }
 
-  update(id: number, updatePeriodDto: UpdatePeriodDto) {
+  async update(id: number, updatePeriodDto: UpdatePeriodDto) {
     return `This action updates a #${id} period`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} period`;
-  }
 }

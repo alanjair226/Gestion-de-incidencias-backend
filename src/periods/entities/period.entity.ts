@@ -10,10 +10,10 @@ export class Period {
     @Column()
     start_date: Date;
 
-    @Column()
+    @Column({nullable: true})
     end_date: Date;
 
-    @Column()
+    @Column({default:true})
     is_open: boolean;
 
     @OneToMany(() => Score, (score) => score.Period)
@@ -21,5 +21,7 @@ export class Period {
 
     @OneToMany(() => Incidence, (incidence) => incidence.period)
     Incidence: Score[];
+
+
 
 }

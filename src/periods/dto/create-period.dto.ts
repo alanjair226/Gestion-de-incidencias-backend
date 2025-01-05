@@ -1,4 +1,4 @@
-import { IsBoolean, IsDateString, IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsDateString, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreatePeriodDto {
   @IsNotEmpty()
@@ -6,10 +6,12 @@ export class CreatePeriodDto {
   start_date: Date;
 
   @IsNotEmpty()
+  @IsOptional()
   @IsDateString()
   end_date: Date;
 
   @IsNotEmpty()
+  @IsOptional()
   @IsBoolean()
   is_open: boolean;
 }

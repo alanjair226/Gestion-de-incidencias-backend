@@ -1,11 +1,4 @@
-import { IsOptional, IsString } from 'class-validator';
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateSeverityDto } from './create-severity.dto';
 
-export class UpdateSeverityDto {
-  @IsOptional()
-  @IsString()
-  name?: string;
-
-  @IsOptional()
-  @IsString()
-  value?: string;
-}
+export class UpdateSeverityDto extends PartialType(CreateSeverityDto){}

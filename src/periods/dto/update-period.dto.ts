@@ -1,15 +1,5 @@
-import { IsBoolean, IsDateString, IsOptional } from 'class-validator';
 
-export class UpdatePeriodDto {
-  @IsOptional()
-  @IsDateString()
-  start_date?: Date;
+import { PartialType } from '@nestjs/mapped-types';
+import { CreatePeriodDto } from './create-period.dto';
 
-  @IsOptional()
-  @IsDateString()
-  end_date?: Date;
-
-  @IsOptional()
-  @IsBoolean()
-  is_open?: boolean;
-}
+export class UpdatePeriodDto extends PartialType(CreatePeriodDto){}
