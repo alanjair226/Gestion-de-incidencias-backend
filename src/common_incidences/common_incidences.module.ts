@@ -12,5 +12,6 @@ import { SeveritiesModule } from 'src/severities/severities.module';
     ],
   controllers: [CommonIncidencesController],
   providers: [CommonIncidencesService],
+  exports: [TypeOrmModule]
 })
 export class CommonIncidencesModule {}

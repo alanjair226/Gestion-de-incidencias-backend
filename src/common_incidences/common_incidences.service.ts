@@ -1,26 +1,80 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateCommonIncidenceDto } from './dto/create-common_incidence.dto';
 import { UpdateCommonIncidenceDto } from './dto/update-common_incidence.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CommonIncidence } from './entities/common_incidence.entity';
+import { Severity } from '../severities/entities/severity.entity';
 
 @Injectable()
 export class CommonIncidencesService {
-  create(createCommonIncidenceDto: CreateCommonIncidenceDto) {
-    return 'This action adds a new commonIncidence';
+
+  constructor(
+      @InjectRepository(CommonIncidence)
+      private readonly commonRepository:Repository<CommonIncidence>,
+      @InjectRepository(Severity)
+      private readonly severityRepository: Repository<Severity>,
+    ){}
+
+    
+  async create(createCommonIncidenceDto: CreateCommonIncidenceDto) {
+    const severity = await this.severityRepository.findOneBy({name: createCommonIncidenceDto.severity})
+
+    if(!severity){
+      throw new BadRequestException("severity not found")
+    }
+
+    const incidence = this.commonRepository.create({
+      ...createCommonIncidenceDto,
+      severity
+    });
+    return await this.commonRepository.save(incidence);
   }
 
-  findAll() {
-    return `This action returns all commonIncidences`;
+
+  async findAll() {
+    return await this.commonRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} commonIncidence`;
+
+  async findOne(id: number) {
+    return await this.commonRepository.findOneBy({id})
   }
 
-  update(id: number, updateCommonIncidenceDto: UpdateCommonIncidenceDto) {
-    return `This action updates a #${id} commonIncidence`;
+
+  async update(id: number, updateCommonIncidenceDto: UpdateCommonIncidenceDto) {
+    const existingIncidence = await this.commonRepository.findOneBy({ id });
+    if (!existingIncidence) {
+      throw new BadRequestException(`CommonIncidence con ID ${id} no encontrada`);
+    }
+  
+    let severity = existingIncidence.severity;
+    if (updateCommonIncidenceDto.severity) {
+      severity = await this.validateSeverity(updateCommonIncidenceDto.severity);
+    }
+  
+    const updatedIncidence = {
+      ...existingIncidence,
+      ...updateCommonIncidenceDto,
+      severity,
+    };
+  
+    return await this.commonRepository.save(updatedIncidence);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} commonIncidence`;
+
+  async remove(id: number) {
+    return await this.commonRepository.delete({id});
+  }
+
+
+  private async validateSeverity(severity: string) {
+    const severityEntity = await this.severityRepository.findOneBy({ name: severity });
+  
+    if (!severityEntity) {
+      throw new BadRequestException('Breed not found');
+    }
+  
+    return severityEntity;
   }
 }

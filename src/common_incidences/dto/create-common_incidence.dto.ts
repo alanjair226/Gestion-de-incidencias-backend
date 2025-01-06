@@ -7,7 +7,7 @@ export class CreateCommonIncidenceDto {
   incidence: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  severity: number; // ID de la severidad asociada
+  @IsString()
+  severity: string;
 }
 

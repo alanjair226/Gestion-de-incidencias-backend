@@ -13,7 +13,7 @@ export class PeriodsService {
     private readonly periodRepository:Repository<Period>
   ){}
 
-  async create(createPeriodDto: CreatePeriodDto): Promise<Period> {
+  async create(createPeriodDto: CreatePeriodDto){
     
     const existingOpenPeriod = await this.periodRepository.findOne({
       where: { is_open: true },
@@ -37,7 +37,18 @@ export class PeriodsService {
   }
 
   async update(id: number, updatePeriodDto: UpdatePeriodDto) {
-    return `This action updates a #${id} period`;
+    if (updatePeriodDto.is_open) {
+      // Buscar si ya existe otro periodo con is_open = true (excluyendo el actual)
+      const existingOpenPeriod = await this.periodRepository.findOne({
+        where: { is_open: true },
+      });
+  
+      if (existingOpenPeriod) {
+        throw new ConflictException('Ya existe otro periodo abierto.');
+      }
+    }
+  
+    // Actualizar el periodo
+    return await this.periodRepository.update(id, updatePeriodDto);
   }
-
 }

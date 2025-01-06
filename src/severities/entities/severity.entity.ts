@@ -11,7 +11,7 @@ export class Severity {
     name: string;
 
     @Column()
-    value: string;
+    value: number;
 
     @OneToMany(() => CommonIncidence, (incidence) => incidence.severity)
     commonincidence: CommonIncidence[];

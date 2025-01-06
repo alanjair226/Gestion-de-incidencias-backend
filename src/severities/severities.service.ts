@@ -1,26 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSeverityDto } from './dto/create-severity.dto';
 import { UpdateSeverityDto } from './dto/update-severity.dto';
+import { Severity } from './entities/severity.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class SeveritiesService {
-  create(createSeverityDto: CreateSeverityDto) {
-    return 'This action adds a new severity';
+
+  constructor(
+    @InjectRepository(Severity)
+      private readonly severityRepository:Repository<Severity>,
+  ){}
+
+  async create(createSeverityDto: CreateSeverityDto) {
+    const severity = this.severityRepository.create(createSeverityDto)
+    return await this.severityRepository.save(severity)
   }
 
-  findAll() {
-    return `This action returns all severities`;
+  async findAll() {
+    return await this.severityRepository.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} severity`;
+  async findOne(id: number) {
+    return await this.severityRepository.findOneBy({id})
   }
 
-  update(id: number, updateSeverityDto: UpdateSeverityDto) {
-    return `This action updates a #${id} severity`;
+  async update(id: number, updateSeverityDto: UpdateSeverityDto) {
+    return await this.severityRepository.update(id, updateSeverityDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} severity`;
+  async remove(id: number) {
+    return await this.severityRepository.delete({id});
   }
+  
 }
