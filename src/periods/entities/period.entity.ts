@@ -16,7 +16,7 @@ export class Period {
     @Column({default:true})
     is_open: boolean;
 
-    @OneToMany(() => Score, (score) => score.Period)
+    @OneToMany(() => Score, (score) => score.period)
     user_score: Score[];
 
     @OneToMany(() => Incidence, (incidence) => incidence.period)

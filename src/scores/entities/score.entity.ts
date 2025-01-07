@@ -16,8 +16,8 @@ export class Score {
     @ManyToOne(() => Period, (period) => period.id, {
         eager: true,
     })
-    Period: Period;
+    period: Period;
 
-    @Column()
+    @Column({default: 100, type:"float"})
     score: number;
 }

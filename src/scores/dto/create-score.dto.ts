@@ -1,15 +1,15 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateScoreDto {
   @IsNotEmpty()
   @IsNumber()
-  user: number; // ID del usuario asociado
+  user: number; 
 
   @IsNotEmpty()
   @IsNumber()
-  Period: number; // ID del periodo asociado
+  period: number; 
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
-  score: number; // Puntuación
+  score: number; 
 }

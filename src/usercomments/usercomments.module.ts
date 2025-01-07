@@ -8,7 +8,6 @@ import { IncidencesModule } from 'src/incidences/incidences.module';
 @Module({
   imports: [
         TypeOrmModule.forFeature([Usercomment]),
-        IncidencesModule
       ],
   controllers: [UsercommentsController],
   providers: [UsercommentsService],

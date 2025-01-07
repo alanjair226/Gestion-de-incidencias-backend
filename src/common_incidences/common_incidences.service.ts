@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CommonIncidence } from './entities/common_incidence.entity';
 import { Severity } from '../severities/entities/severity.entity';
+import { validate } from '../common/utils/validations.utils';
 
 @Injectable()
 export class CommonIncidencesService {
@@ -18,7 +19,7 @@ export class CommonIncidencesService {
 
     
   async create(createCommonIncidenceDto: CreateCommonIncidenceDto) {
-    const severity = await this.severityRepository.findOneBy({name: createCommonIncidenceDto.severity})
+    const severity = await validate(createCommonIncidenceDto.severity, "name", this.severityRepository)
 
     if(!severity){
       throw new BadRequestException("severity not found")
@@ -50,7 +51,7 @@ export class CommonIncidencesService {
   
     let severity = existingIncidence.severity;
     if (updateCommonIncidenceDto.severity) {
-      severity = await this.validateSeverity(updateCommonIncidenceDto.severity);
+      severity = await validate(updateCommonIncidenceDto.severity, "name", this.severityRepository)
     }
   
     const updatedIncidence = {
@@ -68,13 +69,5 @@ export class CommonIncidencesService {
   }
 
 
-  private async validateSeverity(severity: string) {
-    const severityEntity = await this.severityRepository.findOneBy({ name: severity });
   
-    if (!severityEntity) {
-      throw new BadRequestException('Breed not found');
-    }
-  
-    return severityEntity;
-  }
 }

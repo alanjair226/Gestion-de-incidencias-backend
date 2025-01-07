@@ -24,7 +24,7 @@ export class PeriodsService {
     }
 
     const newPeriod = this.periodRepository.create(createPeriodDto);
-    return await this.periodRepository.save(createPeriodDto);
+    return await this.periodRepository.save(newPeriod);
   }
 
 
@@ -38,7 +38,6 @@ export class PeriodsService {
 
   async update(id: number, updatePeriodDto: UpdatePeriodDto) {
     if (updatePeriodDto.is_open) {
-      // Buscar si ya existe otro periodo con is_open = true (excluyendo el actual)
       const existingOpenPeriod = await this.periodRepository.findOne({
         where: { is_open: true },
       });
@@ -48,7 +47,6 @@ export class PeriodsService {
       }
     }
   
-    // Actualizar el periodo
     return await this.periodRepository.update(id, updatePeriodDto);
   }
 }
