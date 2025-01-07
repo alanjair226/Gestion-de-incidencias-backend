@@ -9,13 +9,17 @@ import { UsercommentsModule } from 'src/usercomments/usercomments.module';
 import { User } from 'src/users/entities/user.entity';
 import { PeriodsModule } from 'src/periods/periods.module';
 import { UsersModule } from 'src/users/users.module';
+import { ScoresModule } from 'src/scores/scores.module';
+import { ScoresService } from 'src/scores/scores.service';
 
 @Module({
   imports: [
       TypeOrmModule.forFeature([Incidence]), 
       SeveritiesModule,
       PeriodsModule,
-      UsersModule
+      UsersModule,
+      ScoresModule,
+      UsercommentsModule
     ],
   controllers: [IncidencesController],
   providers: [IncidencesService],

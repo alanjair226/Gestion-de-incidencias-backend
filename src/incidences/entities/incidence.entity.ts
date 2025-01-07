@@ -28,8 +28,11 @@ export class Incidence {
     @Column({type: "float"})
     value: number ;
     
-    @Column({type: "boolean"})
+    @Column({type: "boolean", default: false})
     status: boolean;
+
+    @Column({type: "boolean", default: true})
+    valid: boolean;
 
     @ManyToOne(() => Severity, (severity) => severity.id, {
         eager: true,

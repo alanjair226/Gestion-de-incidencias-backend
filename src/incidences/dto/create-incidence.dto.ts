@@ -1,5 +1,6 @@
-import { IsBoolean, IsDateString, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsBoolean, IsDate, IsDateString, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength } from 'class-validator';
 import { Type } from 'class-transformer';
+import { Optional } from '@nestjs/common';
 
 export class CreateIncidenceDto {
   @IsNotEmpty()
@@ -15,23 +16,27 @@ export class CreateIncidenceDto {
   @IsNumber()
   created_by: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
-  value: number;
+  value?: number;
 
-  @IsNotEmpty()
+  @IsOptional()
+  @IsBoolean()
+  valid?: boolean;
+
+  @IsOptional()
   @IsBoolean()
   status: boolean;
 
   @IsNotEmpty()
-  @IsNumber()
-  severity: number;
+  @IsString()
+  severity: string;
 
   @IsNotEmpty()
   @IsNumber()
   period: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsDateString()
   created_at: Date;
 

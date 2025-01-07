@@ -14,6 +14,6 @@ import { PeriodsService } from 'src/periods/periods.service';
   ],
   controllers: [ScoresController],
   providers: [ScoresService, UsersService,PeriodsService],
-  exports: [ScoresService]
+  exports: [TypeOrmModule, ScoresService]
 })
 export class ScoresModule {}
