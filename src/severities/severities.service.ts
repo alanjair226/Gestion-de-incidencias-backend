@@ -4,7 +4,10 @@ import { UpdateSeverityDto } from './dto/update-severity.dto';
 import { Severity } from './entities/severity.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/common/enum/rol.enum';
 
+@Auth([Role.ADMIN])
 @Injectable()
 export class SeveritiesService {
 

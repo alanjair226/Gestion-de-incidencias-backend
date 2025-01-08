@@ -2,7 +2,6 @@ import { Score } from "../../scores/entities/score.entity";
 import { Role } from "../../common/enum/rol.enum";
 import { Column, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Incidence } from "../../incidences/entities/incidence.entity";
-import { Usercomment } from "src/usercomments/entities/usercomment.entity";
 
 @Entity()
 export class User {
@@ -16,13 +15,13 @@ export class User {
     @Column( { nullable:false, select: false} )
     password: string;
 
-    @Column({ unique: true, nullable:false })
+    @Column({ unique: true, nullable:false, select: false })
     email: string;
 
-    @Column( { type:'enum', default: Role.USER, enum: Role } )
+    @Column( { type:'enum', default: Role.USER, enum: Role, select: false } )
     role: string;
 
-    @DeleteDateColumn()
+    @DeleteDateColumn({ select: false })
     deletedAt: Date;
 
     @OneToMany(() => Score, (score) => score.user)
@@ -33,7 +32,4 @@ export class User {
 
     @OneToMany(() => Incidence, (incidence) => incidence.created_by)
     created_by: Incidence[];
-
-    @OneToMany(() => Usercomment, (comment) => comment.user)
-    comments: Comment[];
 }

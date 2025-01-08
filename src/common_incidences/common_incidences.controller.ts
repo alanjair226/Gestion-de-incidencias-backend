@@ -2,7 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { CommonIncidencesService } from './common_incidences.service';
 import { CreateCommonIncidenceDto } from './dto/create-common_incidence.dto';
 import { UpdateCommonIncidenceDto } from './dto/update-common_incidence.dto';
+import { Auth } from '../auth/decorators/auth.decorator';
+import { Role } from '../common/enum/rol.enum';
 
+@Auth([Role.ADMIN])
 @Controller('common-incidences')
 export class CommonIncidencesController {
   constructor(private readonly commonIncidencesService: CommonIncidencesService) {}

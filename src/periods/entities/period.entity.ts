@@ -2,12 +2,12 @@ import { Incidence } from "src/incidences/entities/incidence.entity";
 import { Score } from "src/scores/entities/score.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity() // Asegúrate de que este decorador está aquí
+@Entity()
 export class Period {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({})
     start_date: Date;
 
     @Column({nullable: true})
@@ -21,7 +21,5 @@ export class Period {
 
     @OneToMany(() => Incidence, (incidence) => incidence.period)
     Incidence: Score[];
-
-
 
 }

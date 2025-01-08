@@ -13,8 +13,7 @@ import { Severity } from './severities/entities/severity.entity';
 import { CommonIncidence } from './common_incidences/entities/common_incidence.entity';
 import { IncidencesModule } from './incidences/incidences.module';
 import { Incidence } from './incidences/entities/incidence.entity';
-import { UsercommentsModule } from './usercomments/usercomments.module';
-import { Usercomment } from './usercomments/entities/usercomment.entity';
+
 require('dotenv').config();
 
 @Module({
@@ -33,7 +32,6 @@ require('dotenv').config();
         Severity,
         CommonIncidence,
         Incidence,
-        Usercomment
       ],
       synchronize: true,
     }),
@@ -44,8 +42,6 @@ require('dotenv').config();
     SeveritiesModule,
     CommonIncidencesModule,
     IncidencesModule,
-    UsercommentsModule,
-    UsercommentsModule,
   ],
   controllers: [],
   providers: [],

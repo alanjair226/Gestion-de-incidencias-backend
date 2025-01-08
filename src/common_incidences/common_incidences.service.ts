@@ -46,7 +46,7 @@ export class CommonIncidencesService {
   async update(id: number, updateCommonIncidenceDto: UpdateCommonIncidenceDto) {
     const existingIncidence = await this.commonRepository.findOneBy({ id });
     if (!existingIncidence) {
-      throw new BadRequestException(`CommonIncidence con ID ${id} no encontrada`);
+      throw new BadRequestException(`CommonIncidence ${id} did not found`);
     }
   
     let severity = existingIncidence.severity;

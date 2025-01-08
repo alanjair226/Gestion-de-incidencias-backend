@@ -1,6 +1,5 @@
 import { Period } from "src/periods/entities/period.entity";
 import { Severity } from "src/severities/entities/severity.entity";
-import { Usercomment } from "src/usercomments/entities/usercomment.entity";
 import { User } from "src/users/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -44,12 +43,16 @@ export class Incidence {
     })
     period: Period;
 
-    @Column()
+    @Column({
+        type: "timestamp",
+        default: () => "CURRENT_TIMESTAMP", // Autocompletar con la fecha/hora actual
+    })
     created_at: Date;
 
-    @OneToOne(() => Usercomment, (comment) => comment.incidence, {
-        eager: true,
+    @Column({
+        type: "varchar",
+        length: 1000,
+        default: null
     })
-    @JoinColumn()
-    comment: Usercomment; 
+    comment: string; 
 }

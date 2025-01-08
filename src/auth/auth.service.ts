@@ -5,12 +5,18 @@ import { RegisterDto } from './dto/register.dto';
 import * as bcryptjs from 'bcryptjs'
 import { LoginDto } from 'src/auth/dto/login.dto';
 import { JwtService } from '@nestjs/jwt'
+import { UpdatePasswordDto } from './dto/update-password.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
 
 
 @Injectable()
 export class AuthService {
 
     constructor(
+        @InjectRepository(User)
+        private readonly userRepository:Repository<User>,
         private readonly usersService: UsersService,
         private readonly jwtService: JwtService
     ){}
@@ -34,6 +40,24 @@ export class AuthService {
             username, email
         }
     }
+
+    async updatePassword(id: number,{password}: UpdatePasswordDto){
+
+        const user =  await this.userRepository.findOneBy({id})
+
+        if(!user){
+            throw new BadRequestException("User does not exist")
+        }
+
+        await this.usersService.create({
+            ...user,
+            password: await bcryptjs.hash(password, 10),
+        });
+
+        return {
+            message: "password changed correctly"
+        }
+    }
     
     async login({email, password}:LoginDto){
 
@@ -49,14 +73,14 @@ export class AuthService {
             throw new UnauthorizedException('password is wrong')
         }
 
-        const payload = { email: user.email, role: user.role}
+        const payload = { id: user.id, email: user.email, role: user.role}
 
         const token = await this.jwtService.signAsync(payload)
 
         return {token, email};
     }
 
-    async profile({email, role}:{email:string, role:string}){
+    async profile({id, email, role}:{id:number, email:string, role:string}){
 
         return await this.usersService.findOneByEmail(email);
     }
