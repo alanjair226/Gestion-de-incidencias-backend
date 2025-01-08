@@ -2,7 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { SeveritiesService } from './severities.service';
 import { CreateSeverityDto } from './dto/create-severity.dto';
 import { UpdateSeverityDto } from './dto/update-severity.dto';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/common/enum/rol.enum';
 
+@Auth([Role.ADMIN, Role.SUPERADMIN])
 @Controller('severities')
 export class SeveritiesController {
   constructor(private readonly severitiesService: SeveritiesService) {}

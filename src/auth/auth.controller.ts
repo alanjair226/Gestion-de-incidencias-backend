@@ -22,7 +22,7 @@ export class AuthController {
 
     constructor(private readonly authService: AuthService,){}
 
-    
+    @Auth([Role.SUPERADMIN])
     @Post('register')
     register(
         @Body()
