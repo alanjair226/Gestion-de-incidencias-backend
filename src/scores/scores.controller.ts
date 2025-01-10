@@ -5,7 +5,7 @@ import { UpdateScoreDto } from './dto/update-score.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { Role } from 'src/common/enum/rol.enum';
 
-@Auth([Role.SUPERADMIN])
+@Auth([Role.USER, Role.ADMIN, Role.SUPERADMIN])
 @Controller('scores')
 export class ScoresController {
   constructor(private readonly scoresService: ScoresService) {}
@@ -18,6 +18,11 @@ export class ScoresController {
   @Get()
   findAll() {
     return this.scoresService.findAll();
+  }
+
+  @Get('/user/:id')
+  findScoresByUser(@Param('id') id: number) {
+    return this.scoresService.findScoresByUser(id);
   }
 
   @Get(':id')

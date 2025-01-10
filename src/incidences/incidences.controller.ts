@@ -30,6 +30,18 @@ export class IncidencesController {
     return this.incidencesService.findOne(+id);
   }
 
+  @Auth([Role.ADMIN, Role.USER, Role.SUPERADMIN])
+  @Get('/user/:iduser/:idperiod')
+  findUserIncidencesByPeriod(@Param('iduser') iduser: string,  @Param('idperiod') idperiod: string) {
+    return this.incidencesService.findUserIncidencesByPeriod(+iduser, +idperiod);
+  }
+
+  @Auth([Role.ADMIN, Role.SUPERADMIN])
+  @Get('/admin/:id')
+  findUserCreatedIncidences(@Param('id') id: string) {
+    return this.incidencesService.findUserCreatedIncidences(+id);
+  }
+
   @Auth([Role.ADMIN, Role.SUPERADMIN])
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateIncidenceDto: UpdateIncidenceDto) {

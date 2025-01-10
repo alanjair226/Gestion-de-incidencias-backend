@@ -32,6 +32,8 @@ export class PeriodsService {
     return await this.periodRepository.find();
   }
 
+  
+
   async findOne(id: number) {
     return this.periodRepository.findOneBy({id})
   }

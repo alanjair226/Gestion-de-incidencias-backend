@@ -21,6 +21,9 @@ export class User {
     @Column( { type:'enum', default: Role.USER, enum: Role, select: false } )
     role: string;
 
+    @Column()
+    image:  string;
+
     @DeleteDateColumn({ select: false })
     deletedAt: Date;
 

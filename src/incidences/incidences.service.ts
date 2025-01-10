@@ -77,6 +77,48 @@ export class IncidencesService {
     return await this.incidenceRepository.find();
   }
 
+  async findUserCreatedIncidences(userId: number) {
+    // Verificar si el usuario existe
+    const user = await this.userRepository.findOneBy({ id: userId });
+    if (!user) {
+      throw new BadRequestException(`Usuario con ID ${userId} no encontrado`);
+    }
+  
+    // Buscar incidencias creadas por el usuario donde el status sea true
+    return await this.incidenceRepository.find({
+      where: {
+        created_by: user,
+        status: true,
+      },
+      order: { created_at: 'DESC' }, // Opcional: ordenar por fecha de creación
+    });
+  }
+  
+  async findUserIncidencesByPeriod(userId: number, periodId: number) {
+    // Verificar si el usuario existe
+    const user = await this.userRepository.findOneBy({ id: userId });
+    if (!user) {
+      throw new BadRequestException(`Usuario con ID ${userId} no encontrado`);
+    }
+  
+    // Verificar si el período existe
+    const period = await this.periodRepository.findOneBy({ id: periodId });
+    if (!period) {
+      throw new BadRequestException(`Período con ID ${periodId} no encontrado`);
+    }
+  
+    // Encontrar incidencias del usuario en el período especificado
+    return await this.incidenceRepository.find({
+      where: {
+        assigned_to: user,
+        period: period,
+      },
+      order: { created_at: 'DESC' }, // Opcional: ordenar por fecha de creación
+    });
+  }
+  
+  
+
   async findOne(id: number) {
     return this.incidenceRepository.findOneBy({id});
   }

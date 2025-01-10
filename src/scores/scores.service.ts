@@ -36,6 +36,22 @@ export class ScoresService {
     return await this.scoreRepository.find()
   }
 
+  async findScoresByUser(userId: number) {
+    // Verificar si el usuario existe
+    const user = await this.userRepository.findOneBy({ id: userId });
+    if (!user) {
+      throw new BadRequestException(`Usuario con ID ${userId} no encontrado`);
+    }
+  
+    // Buscar los scores asociados al usuario
+    return await this.scoreRepository.find({
+      where: { user },
+      relations: ['user', 'period'], // Incluir relaciones relevantes
+      order: { id: 'ASC' }, // Opcional: ordenar por ID o cualquier otro campo
+    });
+  }
+  
+
   async findOne(id: number) {
     return await this.scoreRepository.findOneBy({id})
   }
