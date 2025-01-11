@@ -33,7 +33,7 @@ require('dotenv').config();
         CommonIncidence,
         Incidence,
       ],
-      synchronize: true,
+      synchronize: false,
     }),
     UsersModule,
     AuthModule,
