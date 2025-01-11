@@ -6,11 +6,11 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { Role } from 'src/common/enum/rol.enum';
 
 
-@Auth([Role.ADMIN, Role.SUPERADMIN])
 @Controller('periods')
 export class PeriodsController {
   constructor(private readonly periodsService: PeriodsService) {}
 
+  @Auth([Role.SUPERADMIN])
   @Post()
   create(@Body() createPeriodDto: CreatePeriodDto) {
     return this.periodsService.create(createPeriodDto);
@@ -28,7 +28,7 @@ export class PeriodsController {
     return this.periodsService.findOne(+id);
   }
 
-  
+  @Auth([Role.SUPERADMIN])
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePeriodDto: UpdatePeriodDto) {
     return this.periodsService.update(+id, updatePeriodDto);

@@ -24,7 +24,7 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Auth([Role.ADMIN, Role.ADMIN, Role.SUPERADMIN])
+  @Auth([Role.ADMIN, Role.SUPERADMIN])
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.usersService.findOne(id);
