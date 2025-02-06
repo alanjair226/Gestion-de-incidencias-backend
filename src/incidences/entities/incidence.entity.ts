@@ -45,7 +45,7 @@ export class Incidence {
 
     @Column({
         type: "timestamp",
-        default: () => "CURRENT_TIMESTAMP", // Autocompletar con la fecha/hora actual
+        default: () => "CURRENT_TIMESTAMP",
     })
     created_at: Date;
 
