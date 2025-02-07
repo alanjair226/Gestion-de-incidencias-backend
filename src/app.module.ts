@@ -13,6 +13,8 @@ import { Severity } from './severities/entities/severity.entity';
 import { CommonIncidence } from './common_incidences/entities/common_incidence.entity';
 import { IncidencesModule } from './incidences/incidences.module';
 import { Incidence } from './incidences/entities/incidence.entity';
+import { ImageIncidenceModule } from './image_incidence/image_incidence.module';
+import { ImageIncidence } from './image_incidence/entities/image_incidence.entity';
 
 require('dotenv').config();
 
@@ -33,6 +35,7 @@ require('dotenv').config();
         Severity,
         CommonIncidence,
         Incidence,
+        ImageIncidence
       ],
       synchronize: false,
     }),
@@ -43,6 +46,7 @@ require('dotenv').config();
     SeveritiesModule,
     CommonIncidencesModule,
     IncidencesModule,
+    ImageIncidenceModule,
   ],
   controllers: [],
   providers: [],

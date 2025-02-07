@@ -1,7 +1,8 @@
 import { Period } from "src/periods/entities/period.entity";
 import { Severity } from "src/severities/entities/severity.entity";
 import { User } from "src/users/entities/user.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { ImageIncidence } from "src/image_incidence/entities/image_incidence.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Incidence {
@@ -55,4 +56,9 @@ export class Incidence {
         default: null
     })
     comment: string; 
+
+    @OneToMany(() => ImageIncidence, image => image.incidence, {
+        eager: true,
+    })
+    images: ImageIncidence[];
 }
