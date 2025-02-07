@@ -24,7 +24,8 @@ export class ImageIncidenceController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateImageIncidenceDto: UpdateImageIncidenceDto) {
-    return this.imageIncidenceService.update(+id, updateImageIncidenceDto);
+    //return this.imageIncidenceService.update(+id, updateImageIncidenceDto);
+    return {message:"to be developed"}
   }
 
   @Delete(':id')

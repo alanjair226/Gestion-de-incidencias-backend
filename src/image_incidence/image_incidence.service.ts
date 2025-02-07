@@ -23,7 +23,7 @@ export class ImageIncidenceService {
       incidence
     })
     const imageIncidence = await this.imageIncidenceRepository.create(newImage);
-    await this.imageIncidenceRepository.save(newImage);
+    await this.imageIncidenceRepository.save(imageIncidence);
 
     return { message: "Imagen registrada exitosamente" };
   }
