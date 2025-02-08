@@ -15,6 +15,7 @@ import { IncidencesModule } from './incidences/incidences.module';
 import { Incidence } from './incidences/entities/incidence.entity';
 import { ImageIncidenceModule } from './image_incidence/image_incidence.module';
 import { ImageIncidence } from './image_incidence/entities/image_incidence.entity';
+import { GoogleDriveService } from './google-drive/google-drive.service';
 
 require('dotenv').config();
 
@@ -37,7 +38,7 @@ require('dotenv').config();
         Incidence,
         ImageIncidence
       ],
-      synchronize: false,
+      synchronize: true,
     }),
     UsersModule,
     AuthModule,
@@ -49,6 +50,6 @@ require('dotenv').config();
     ImageIncidenceModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [GoogleDriveService],
 })
 export class AppModule {}

@@ -1,11 +1,11 @@
-import { IsString, IsNotEmpty, IsInt } from 'class-validator';
+import { IsString, IsNotEmpty, IsInt, IsEmpty, IsOptional } from 'class-validator';
 
 export class CreateImageIncidenceDto {
     @IsString()
-    @IsNotEmpty()
+    @IsOptional()
     url: string;
 
-    @IsInt()
+    @IsString()
     @IsNotEmpty()
-    incidenceId: number;
+    incidenceId: string;
 }

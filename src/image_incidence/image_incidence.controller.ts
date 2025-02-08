@@ -1,9 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { ImageIncidenceService } from './image_incidence.service';
 import { CreateImageIncidenceDto } from './dto/create-image_incidence.dto';
 import { UpdateImageIncidenceDto } from './dto/update-image_incidence.dto';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { Role } from '../common/enum/rol.enum';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 @Controller('image-incidence')
 export class ImageIncidenceController {
@@ -11,8 +14,17 @@ export class ImageIncidenceController {
 
   @Auth([Role.ADMIN, Role.SUPERADMIN])
   @Post()
-  create(@Body() createImageIncidenceDto: CreateImageIncidenceDto) {
-    return this.imageIncidenceService.create(createImageIncidenceDto);
+  @UseInterceptors(FileInterceptor('file', {
+    storage: diskStorage({
+      destination: './uploads',
+      filename: (req, file, cb) => {
+        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+        cb(null, `${randomName}${extname(file.originalname)}`);
+      }
+    })
+  }))
+  create(@UploadedFile() file: Express.Multer.File, @Body() createImageIncidenceDto: CreateImageIncidenceDto) {
+    return this.imageIncidenceService.create(createImageIncidenceDto, file);
   }
 
   @Auth([Role.USER])
