@@ -38,7 +38,7 @@ require('dotenv').config();
         Incidence,
         ImageIncidence
       ],
-      synchronize: true,
+      synchronize: false,
     }),
     UsersModule,
     AuthModule,
