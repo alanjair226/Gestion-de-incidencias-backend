@@ -16,6 +16,7 @@ import { Incidence } from './incidences/entities/incidence.entity';
 import { ImageIncidenceModule } from './image_incidence/image_incidence.module';
 import { ImageIncidence } from './image_incidence/entities/image_incidence.entity';
 import { GoogleDriveService } from './google-drive/google-drive.service';
+import { ReportsModule } from './reports/reports.module';
 
 require('dotenv').config();
 
@@ -48,6 +49,7 @@ require('dotenv').config();
     CommonIncidencesModule,
     IncidencesModule,
     ImageIncidenceModule,
+    ReportsModule,
   ],
   controllers: [],
   providers: [GoogleDriveService],
