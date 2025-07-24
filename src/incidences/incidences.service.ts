@@ -221,6 +221,20 @@ export class IncidencesService {
   
   
   async remove(id: number) {
+    const existingIncidence = await this.incidenceRepository.findOneBy({ id });
+    
+    if (existingIncidence.valid === true) {
+      const score = await this.scoreRepository.findOneBy({
+        user: existingIncidence.assigned_to,
+        period: existingIncidence.period,
+      });
+
+      if (score) {
+        score.score += existingIncidence.value;
+        await this.scoreRepository.save(score);
+      }
+    }
+
     return await this.incidenceRepository.delete({id});
   }
 }
